@@ -10,7 +10,7 @@ Is strongly based in other frameworks such as Backbone, but its aim is to be a s
 Features
 ========
 
-* Very simple
+* Simple
 * Pure prototypal inheritance.
 * Nothing else than a MV* library
 
