@@ -194,10 +194,13 @@
         },
 
         getRespAttr: function (data) {
-            var attr = data[this.root];
+            var attr;
 
-            if (attr && attr.length) {
-                attr = attr[0];
+            if (data) {
+                attr = data[this.root];
+                if (attr && attr.length) {
+                    attr = attr[0];
+                }
             }
 
             return attr;
@@ -422,6 +425,10 @@
                 model = this.model.create(model);
             }
 
+            if (this.exists(model.getId())) {
+                return false;
+            }
+
             this.data.push(model);
             this.rawData.push(model.attr);
             if (this.dataAdapter) {
@@ -429,6 +436,8 @@
             }
             model.on('change', this.onModelChange, this);
             this.trigger('add', model);
+
+            return model;
         },
 
         remove: function (model) {
@@ -514,13 +523,17 @@
             return false;
         },
 
+        exists: function (id) {
+            return !!this.getById(id);
+        },
+
         count: function () {
             return this.data ? this.data.length : undefined;
         }
 
     });
 
-    P.View = P.inherits(Object.prototype, {
+    P.View = P.inherits(P.Event, {
         // children will define:
         // list or model
         // state (in the 'init' method)
@@ -530,7 +543,8 @@
         init: function () {
             var lists = this.list,
                 models = this.model,
-                i;
+                i,
+                onModelChange;
 
             this.state = P.inherits(P.Event, {});
 
@@ -569,15 +583,61 @@
                     models = [models];
                 }
                 for (i=0; i<models.length; i++) {
-                    if (this.handlers.onModelChange) {
-                        models[i].on('change', this.handlers.onModelChange, this);
+                    onModelChange = this.handlers.onModelChange || this.onModelChange;
+                    if (onModelChange) {
+                        models[i].on('change', onModelChange, this);
                     }
                     if (this.handlers.onModelSave) {
                         models[i].on('save', this.handlers.onModelSave, this);
                     }
+                    if (this.handlers.onModelDestroy) {
+                        models[i].on('destroy', this.handlers.onModelDestroy, this);
+                    }
                 }
             }
+        },
+
+        viewModel: function () {
+            var result = {},
+                attrname,
+                value;
+
+            if (this.model) {
+                if (this.defViewModel) {
+                    for (attrname in this.model.attr) {
+                        value = this.model.attr[attrname];
+                        if (attrname in this.defViewModel) {
+                            result[attrname] = this.defViewModel[attrname](value);
+                        }
+                        else {
+                            result[attrname] = value;
+                        }
+                    }
+                }
+                else {
+                    result = this.model.attr;
+                }
+            }
+
+            return result;
+        },
+
+        create: function (options) {
+            var view = Object.create(this);
+
+            view.model = options.model;
+            view.list = options.list;
+            view.el = options.el;
+            view.rootTag = options.rootTag;
+            view.init();
+
+            return view;
+        },
+
+        destroy: function () {
+            this.el.remove();
         }
+
     });
 
 

@@ -25,6 +25,17 @@ Example
 
 Changelog
 =========
+### 0.0.2
+* P.Model.getRespAttr fix
+* P.List.exists added
+* P.List.add don't add if exists. Also returns the model.
+* P.View inherits P.Event
+* P.View.init handler onModelDestroy added
+* P.View.create added
+* P.View.destroy added
+* P.View.viewModel method added. There is now the possibility to define viewModels through defViewModel.
+* P.View.init onModelChange default method to provide data binding
+
 ### 0.0.1
 
 * P.List.loadNext removed
