@@ -25,7 +25,7 @@ P.View.onModelChange = function onModelChange (e, args) {
                 if (attr === args.attr) {
                     debugger;
 
-                    if (this.defViewModel[attr]) {
+                    if (this.defViewModel && this.defViewModel[attr]) {
                         value = this.defViewModel[attr](args.value);
                     }
                     else {
