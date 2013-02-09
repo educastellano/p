@@ -25,6 +25,10 @@ Example
 
 Changelog
 =========
+### 0.0.3
+* P.persistREST and P.persistLocalStorage moved to other files. P.persist needs to be set by the app.
+* p.data-bind.js file added
+
 ### 0.0.2
 * P.Model.getRespAttr fix
 * P.List.exists added

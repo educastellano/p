@@ -5,7 +5,6 @@
 // Requires
 // - ES5
 // - jQuery (or jQuery-compatible lib) for :
-//      - the ajax call (we might not include the default persistence in this lib in the future...)
 //      - fn.clone function (we should move the functions in 'fn' object to a another lib)
 //
 
@@ -652,137 +651,8 @@
         'read':   'GET'
     };
 
-    // RESTful persistence
-    P.persistREST = function (method, model, options) {
-        var methodMap = model.methodMap || P.methodMap,
-            type = methodMap[method],
-            params = {
-                type: type,
-                dataType: 'json'
-            },
-            opt,
-            data,
-            api;
+    // P.persist  function must be overwritten
+    //            it accepts these parameters: (method, model, options)
 
-        options = options || {};
-
-
-        // Set data for updates
-        if (method === 'create' || method === 'update') {
-            data = options.data || (method === 'create' ? model.attr : model.changed);
-            if (data && Object.keys(data).length) {
-                params.contentType = 'application/json';
-                params.data = model.toDataAPI(data, method);
-            }
-        }
-
-        // Don't process data on a non-GET request.
-        if (params.type !== 'GET') {
-            params.processData = false;
-        }
-
-        // Override params with the user options
-        for (opt in options) {
-            if (options.hasOwnProperty(opt)) {
-                params[opt] = options[opt];
-            }
-        }
-
-        // Set URL
-        api = model.api || model.url;
-        if (typeof api === 'object') {
-            params.url = api[method];
-        }
-        else if (typeof api === 'function') {
-            params.url = api.call(model, options.urlParams, method);
-            model.urlParams = options.urlParams;
-            delete params.urlParams;
-        }
-        else { // string. RESTful url
-            params.url = api;
-            if (method !== 'create') {
-                if (params.url[params.url.length-1] !== '/') {
-                    params.url += '/';
-                }
-                params.url += model.getId();
-            }
-        }
-
-        return $.ajax(params);
-    };
-
-    // localStorage persistence
-    P.persistLocalStorage = function (method, model, options) {
-        var name,
-            jsonData,
-            data,
-            list,
-            returnData,
-            i;
-
-        if (P.List.isPrototypeOf(model)) {
-            list = model;
-            model = list.model;
-        }
-
-        // get data
-        name = model.localStorage || model.$name;
-        jsonData = localStorage.getItem(name);
-        if (jsonData) {
-            data = JSON.parse(jsonData);
-        }
-        else {
-            data = [];
-        }
-
-        // perfom operation
-        if (method === 'create') {
-            model.attr['uuid'] = P.fn.uuid();
-            data.push(model.attr);
-            returnData = model;
-
-            // save data
-            jsonData = JSON.stringify(data);
-            localStorage.setItem(name, jsonData);
-        }
-        else if (method === 'update') {
-
-            // save data
-            jsonData = JSON.stringify(data);
-            localStorage.setItem(name, jsonData);
-        }
-        else if (method === 'delete') {
-            for (i=0; i<data.length; i++) {
-                if (data[i].uuid === model.get('uuid')) {
-                    data.splice(i, 1);
-                }
-            }
-
-            // save data
-            jsonData = JSON.stringify(data);
-            localStorage.setItem(name, jsonData);
-        }
-        else if (method === 'read') {
-            if (list) {
-                returnData = data;
-            }
-            else {
-
-
-
-            }
-        }
-        else {
-
-        }
-
-
-        if (options.success) {
-            options.success(returnData);
-        }
-    };
-
-    // Default persistence
-    P.persist = P.persistREST;
 
 })(this);
