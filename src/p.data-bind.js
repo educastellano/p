@@ -22,36 +22,33 @@ P.databind.bindData = function bindData (view, el, args) {
         aux,
         attrDOM,
         attr,
-        el,
         i,
         value,
         children;
 
-    if (el) {
-        bind = el.data().bind;
-        if (bind) {
-            aux = bind.split(':');
-            attrDOM = aux[0];
-            attr = aux[1];
-            if (attr === args.attr) {
-                if (view.defViewModel && view.defViewModel[attr]) {
-                    value = view.defViewModel[attr](args.value);
-                }
-                else {
-                    value = args.value;
-                }
+    bind = el.data().bind;
+    if (bind) {
+        aux = bind.split(':');
+        attrDOM = aux[0];
+        attr = aux[1];
+        if (attr === args.attr) {
+            if (view.defViewModel && view.defViewModel[attr]) {
+                value = view.defViewModel[attr](args.value);
+            }
+            else {
+                value = args.value;
+            }
 
-                if (attrDOM === 'text' || attrDOM === 'html') {
-                    el[attrDOM](value);
-                }
-                else {
-                    el.attr(attrDOM, value);
-                }
+            if (attrDOM === 'text' || attrDOM === 'html') {
+                el[attrDOM](value);
+            }
+            else {
+                el.attr(attrDOM, value);
             }
         }
-        children = el.children();
-        for (i=0; i<children.length; i++) {
-            bindData(view, $(children.get(i)), args);
-        }
+    }
+    children = el.children();
+    for (i=0; i<children.length; i++) {
+        bindData(view, $(children.get(i)), args);
     }
 };
