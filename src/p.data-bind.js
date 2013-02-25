@@ -39,6 +39,10 @@ P.databind.bindData = function bindData (view, el, args) {
                 value = args.value;
             }
 
+            if (args.model.fade) {
+                P.databind.fade(el);
+            }
+
             if (attrDOM === 'text' || attrDOM === 'html') {
                 el[attrDOM](value);
             }
@@ -51,4 +55,24 @@ P.databind.bindData = function bindData (view, el, args) {
     for (i=0; i<children.length; i++) {
         bindData(view, $(children.get(i)), args);
     }
+};
+
+P.databind.fade = function (node) {
+    var level = 0,
+        initialLevel = 16,
+        timeoutStep = 80,
+        step;
+
+    node = $(node);
+
+    step = function () {
+        var hex = level.toString(initialLevel);
+        node.css('background-color', '#ffff' + hex + hex);
+        if (level < initialLevel-1) {
+            level += 1;
+            setTimeout(step, timeoutStep);
+        }
+    };
+
+    setTimeout(step, timeoutStep);
 };
