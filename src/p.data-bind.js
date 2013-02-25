@@ -72,6 +72,9 @@ P.databind.fade = function (node) {
             level += 1;
             setTimeout(step, timeoutStep);
         }
+        else {
+            node.css('background-color', '');
+        }
     };
 
     setTimeout(step, timeoutStep);
