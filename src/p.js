@@ -268,6 +268,8 @@
                 model = this;
             }
 
+	        xhrOptions.urlParams = options.urlParams;
+
             xhrOptions.success = function (resp) {
                 var data = me.root ? resp[me.root] : resp;
 
