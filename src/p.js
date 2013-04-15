@@ -273,9 +273,17 @@
             xhrOptions.success = function (resp) {
                 var data = me.root ? resp[me.root] : resp;
 
-                if (data && data.length) {
-                    model.attr = data[0];
+                if (Array.isArray(data)) {
+                    if (data && data.length) {
+                        model.attr = data[0];
+                    }
                 }
+                else {
+                    if (data && Object.keys(data).length) {
+                        model.attr = data;
+                    }
+                }
+
                 model.trigger('fetch', model);
                 if (options.success) {
                     options.success(model);
