@@ -27,8 +27,10 @@ Changelog
 =========
 ### 0.0.3
 * P.persistREST and P.persistLocalStorage moved to other files. P.persist needs to be set by the app.
-* p.data-bind.js file added
-* p.Model.fetch fixes
+* P.data-bind.js file added
+* P.Model.fetch fixes
+* P.View.state removed
+* P.persistREST - url fix for lists
 
 ### 0.0.2
 * P.Model.getRespAttr fix
@@ -39,7 +41,7 @@ Changelog
 * P.View.create added
 * P.View.destroy added
 * P.View.viewModel method added. There is now the possibility to define viewModels through defViewModel.
-* P.View.init onModelChange default method to provide data binding
+* P.View.init onModelChange - default method to provide data binding
 
 ### 0.0.1
 

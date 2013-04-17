@@ -13,6 +13,12 @@ P.persistREST = function (method, model, options) {
 
     options = options || {};
 
+    if (P.List.isPrototypeOf(model) && model.model) {
+        if (!model.url) { // TODO (quickfix) lists probably shouldn't contain the url for the next releases
+            model = model.model;
+        }
+    }
+
     // Set data for updates
     if (method === 'create' || method === 'update') {
         data = options.data || (method === 'create' ? model.attr : model.changed);
