@@ -1,4 +1,4 @@
-__IMPORTANT__: There is not any stable release of this lib yet. Coming soon ;)
+__IMPORTANT__: There is not any stable release of this lib yet.
 
 P
 =
@@ -19,9 +19,41 @@ Install
 
 Get the [compiled and minified version](https://raw.github.com/educastellano/p/master/lib/p-0.0.2.min.js) and include it to your application.
 
-Example
-=======
+# Some Basics
 
+Define models:
+
+	App.Person = P.inherits(P.Model, {
+	    api: '/api/0/person'
+	});
+
+Define views:
+
+	App.PersonView = P.inherits(P.View, {
+
+	    el: $('#person'),
+
+	    handlers: {
+	        onModelLoad: function onModelLoad(e, model) {
+	            this.render(model);
+	        }
+    	},
+    	
+    	render: function (model) {
+    		// render it the way you want
+    	}
+
+	});
+
+Fetch data:
+	
+	var person = App.Person.create();
+	
+	App.PersonView.model = person; 
+	
+	person.fetch({
+		id: 1
+	});
 
 Changelog
 =========
