@@ -545,7 +545,6 @@
     P.View = P.inherits(P.Event, {
         // children will define:
         // list or model
-        // state (in the 'init' method)
 
         $name: 'View',
 
@@ -554,12 +553,6 @@
                 models = this.model,
                 i,
                 onModelChange;
-
-            this.state = P.inherits(P.Event, {});
-
-            if (this.handlers.onStateChange) {
-                this.state.on('change', this.handlers.onStateChange, this);
-            }
 
             if (lists) {
                 if (!Array.isArray(lists)) {
