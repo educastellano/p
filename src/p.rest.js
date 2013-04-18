@@ -14,7 +14,8 @@ P.persistREST = function (method, model, options) {
     options = options || {};
 
     if (P.List.isPrototypeOf(model) && model.model) {
-        if (!model.url) { // TODO (quickfix) lists probably shouldn't contain the url for the next releases
+        // list url prevals over model url
+        if (!model.url) {
             model = model.model;
         }
     }
