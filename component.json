@@ -1,0 +1,7 @@
+{
+  "name": "p",
+  "version": "0.0.2",
+  "dependencies": {
+    "jquery": ">=1.7.2"
+  }
+}
