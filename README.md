@@ -11,7 +11,7 @@ Features
 ========
 
 * Simple
-* Pure prototypal inheritance.
+* Prototypal inheritance (No use of the "new" operator)
 * Nothing else than a MV* library
 
 Install
