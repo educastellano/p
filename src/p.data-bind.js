@@ -13,7 +13,7 @@ P.databind.onModelChange = function onModelChange (e, args) {
         }
     }
     catch (e) {
-
+        // no need to throw the error, data simply won't be changed.
     }
 };
 
@@ -39,8 +39,16 @@ P.databind.bindData = function bindData (view, el, args) {
                 value = args.value;
             }
 
-            if (args.model.fade) {
-                P.databind.fade(el);
+            if (args.fade) {
+                if (typeof args.fade === 'boolean') {
+                    P.databind.fade(el);
+                }
+                else if (typeof args.fade === 'function') {
+                    args.fade(el);
+                }
+                else {
+                    // no more types supported
+                }
             }
 
             if (attrDOM === 'text' || attrDOM === 'html') {
@@ -57,6 +65,7 @@ P.databind.bindData = function bindData (view, el, args) {
     }
 };
 
+// default fade function
 P.databind.fade = function (node) {
     var level = 0,
         initialLevel = 16,

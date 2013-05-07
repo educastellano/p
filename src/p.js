@@ -175,15 +175,25 @@
             return this.attr[attr];
         },
 
-        set: function (attr, value, noEvent, noChange) {
+        set: function (attr, value, options) {
+            var event_args;
+
             this.attr = this.attr || {};
             this.changed = this.changed || {};
             this.attr[attr] = value;
-            if (!noChange) {
+            if (!options || !options.no_change) {
                 this.changed[attr] = value;
             }
-            if (!noEvent) {
-                this.trigger('change', {model:this, attr: attr, value: value});
+            if (!options || !options.no_event) {
+                event_args = {
+                    model:this,
+                    attr: attr,
+                    value: value
+                };
+                if (options && options.event_args) {
+                    event_args = P.inherits(event_args, options.event_args);
+                }
+                this.trigger('change', event_args);
             }
         },
 

@@ -63,6 +63,7 @@ Changelog
 * P.Model.fetch fixes
 * P.View.state removed
 * P.persistREST - url fix for lists
+* P.Model.set - extra arguments wrapped in options object. Custom event_args supported.
 
 ### 0.0.2
 * P.Model.getRespAttr fix
