@@ -17,13 +17,14 @@ P.plugins.socketio = function (options) {
         list.socket.on(list.model.api, function (data) {
             var getBy = data.getBy || list.model.idAttr,
                 model = list.getBy(getBy, data.data[getBy]),
-                attrs = Object.keys(data.data),
+                attrs,
                 i;
 
             if (model) {
                 if (data.method === 'update') {
+                    attrs = Object.keys(data.data);
                     for (i=0; i<attrs.length; i++) {
-                        model.set(attrs[i], data.data[attrs[i]], false, true);
+                        model.set(attrs[i], data.data[attrs[i]], { no_change: true });
                     }
                 }
                 else {
