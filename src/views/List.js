@@ -51,6 +51,8 @@ P.plugins.view.List = P.inherits(P.View, {
         for (i=0; i<this.views.length; i++) {
             this.views[i].destroy();
         }
+        // jQuery update event, used by some plugins
+        this.el.trigger('update');
     },
 
     append: function (model) {
@@ -72,6 +74,8 @@ P.plugins.view.List = P.inherits(P.View, {
             }
             delete model.__fade__;
         }
+        // jQuery update event, used by some plugins
+        this.el.trigger('update');
     },
 
     remove: function (model) {
@@ -79,6 +83,8 @@ P.plugins.view.List = P.inherits(P.View, {
         for (i=0; i<this.views.length; i++) {
             if (this.views[i].model.getId() === model.getId()) {
                 this.views[i].destroy();
+                // jQuery update event, used by some plugins
+                this.el.trigger('update');
                 break;
             }
         }
