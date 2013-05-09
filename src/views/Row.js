@@ -11,6 +11,7 @@ P.plugins.view.Row = P.inherits(P.View, {
     //    model: ,
     //    el: $()
     //    template:   Handlebars.compile($("#item-template").html()),
+    //    css_selected: ''
 
     handlers: {
         onModelChange: P.databind.onModelChange,
@@ -27,7 +28,7 @@ P.plugins.view.Row = P.inherits(P.View, {
     },
 
     select: function () {
-        this.el.addClass('hci-selected');
+        this.el.addClass(this.css_selected);
     }
 
 });

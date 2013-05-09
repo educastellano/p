@@ -92,7 +92,7 @@ P.plugins.view.List = P.inherits(P.View, {
 
     selectOne: function (item) {
         var i;
-        this.el.find('.item').removeClass('hci-selected');
+        this.el.find('.item').removeClass(this.rowView.css_selected);
         for (i=0; i<this.views.length; i++) {
              if (this.views[i].model.getId() === item.getId()) {
                  this.views[i].select();
