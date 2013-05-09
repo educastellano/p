@@ -373,7 +373,8 @@
 
         load: function (options) {
             var me = this,
-                xhrOptions = {};
+                xhrOptions = {},
+                event_args;
 
             options = options || {};
 
@@ -412,7 +413,9 @@
                 }
 
                 if (!options.noEvent) {
-                    me.trigger('load', me);
+                    event_args = options.event_args || {};
+                    event_args.list = me;
+                    me.trigger('load', event_args);
                 }
 
                 if (options.success) {
@@ -436,7 +439,9 @@
             this.trigger('clear', this);
         },
 
-        add: function (model) {
+        add: function (model, options) {
+            var event_args;
+
             this.data = this.data || [];
             this.rawData = this.rawData || [];
 
@@ -454,41 +459,44 @@
                 this.dataAdapter(model);
             }
             model.on('change', this.onModelChange, this);
-            this.trigger('add', model);
+            event_args = options && options.event_args || {};
+            event_args.model = model;
+            this.trigger('add', event_args);
 
             return model;
         },
 
-        remove: function (model) {
+        remove: function (model, options) {
             if (model.getId()) {
-                return this.removeById(model.getId());
+                return this.removeById(model.getId(), options);
             }
             else {
-                return this.removeByCid(model.cid);
+                return this.removeByCid(model.cid, options);
             }
         },
 
-        removeByCid: function (cid) {
+        removeByCid: function (cid, options) {
             // TODO
         },
 
-        removeById: function (id) {
+        removeById: function (id, options) {
             var ids = Array.isArray(id) ? id : [id],
                 i,
                 model,
                 models = [];
 
             for (i=0; i<ids.length; i++) {
-                model = this.removeByAttr(this.model.idAttr, ids[i]);
+                model = this.removeByAttr(this.model.idAttr, ids[i], options);
                 models.push(model);
             }
 
             return models.length === 1 ? models[0] : models;
         },
 
-        removeByAttr: function (attr, value) {
+        removeByAttr: function (attr, value, options) {
             var i,
-                model;
+                model,
+                event_args;
 
             if (this.data) {
                 for (i=0; i<this.data.length; i++) {
@@ -497,7 +505,9 @@
                         model.off('change', this.onModelChange, this);
                         this.data.splice(i, 1);
                         this.rawData.splice(i, 1);
-                        this.trigger('remove', model);
+                        event_args = options && options.event_args || {};
+                        event_args.model = model;
+                        this.trigger('remove', event_args);
                         return model;
                     }
                 }

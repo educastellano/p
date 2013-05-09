@@ -16,14 +16,14 @@ P.plugins.view.List = P.inherits(P.View, {
     //    sortable: function() (Optional)
 
     handlers: {
-        onListLoad: function onListLoad(e, list) {
-            this.render(list);
+        onListLoad: function onListLoad(e, args) {
+            this.render(args.list);
         },
-        onListAdd: function onListAdd(e, model) {
-            this.append(model);
+        onListAdd: function onListAdd(e, args) {
+            this.append(args.model, args);
         },
-        onListRemove: function onListRemove(e, model) {
-            this.remove(model);
+        onListRemove: function onListRemove(e, args) {
+            this.remove(args.model);
         },
         onRowClick: function onRowClick(e, row) {
             this.trigger('rowclick', {row: row, list: this});
@@ -55,7 +55,7 @@ P.plugins.view.List = P.inherits(P.View, {
         this.el.trigger('update');
     },
 
-    append: function (model) {
+    append: function (model, options) {
         var view = this.rowView.create({
             model: model
         });
@@ -63,16 +63,15 @@ P.plugins.view.List = P.inherits(P.View, {
         this.el.append(view.el);
         view.on('click', this.handlers.onRowClick, this);
         this.views.push(view);
-        if (model.__fade__) {
-            if (typeof model.__fade__ === 'function') {
-                model.__fade__(view.el);
+        if (options && options.fade) {
+            if (typeof options.fade === 'function') {
+                options.fade(view.el);
             }
             else {
-                if (tk && tk.dom) {
-                    tk.dom.fade(view.el);
+                if (this.fade) {
+                    this.fade(view.el);
                 }
             }
-            delete model.__fade__;
         }
         // jQuery update event, used by some plugins
         this.el.trigger('update');

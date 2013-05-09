@@ -64,6 +64,8 @@ Changelog
 * P.View.state removed
 * P.persistREST - url fix for lists
 * P.Model.set - extra arguments wrapped in options object. Custom event_args supported.
+* P.List.add, P.List.remove optional parameter
+* P.List.add, P.List.remove, P.List.load triggering event_args passed by parameter.
 
 ### 0.0.2
 * P.Model.getRespAttr fix
