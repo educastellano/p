@@ -17,7 +17,7 @@ Features
 Install
 =======
 
-Get the [compiled and minified version](https://raw.github.com/educastellano/p/master/lib/p-0.0.2.min.js) and include it to your application.
+Get the [compiled and minified version](https://raw.github.com/educastellano/p/master/lib/p-0.0.3.min.js) and include it to your application.
 
 # Some Basics
 
