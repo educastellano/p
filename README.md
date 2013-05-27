@@ -12,7 +12,7 @@ Features
 
 * Simple
 * Prototypal inheritance (No use of the "new" operator)
-* Nothing else than a MV* library
+* The core (p.js) is nothing else than a MV* library
 
 Install
 =======
@@ -54,6 +54,10 @@ Fetch data:
 	person.fetch({
 		id: 1
 	});
+	
+# Docs
+
+For the full documentation visit [this site](https://github.com/educastellano/p/tree/master/src).
 
 Changelog
 =========
