@@ -235,11 +235,13 @@
 
         save: function (options) {
             var me = this,
-                method = this.getId() ? 'update' : 'create',
+                method,
                 fnSuccess,
                 fnError;
 
             options = options || {};
+            method = options.method || (this.getId() ? 'update' : 'create');
+            delete options.method;
             fnSuccess = options.success;
             fnError = options.error;
             options.success = function (resp) {

@@ -61,6 +61,9 @@ For the full documentation visit [this site](https://github.com/educastellano/p/
 
 Changelog
 =========
+### dev version
+* P.Model.save - 'method' can be passed in the options argument.
+
 ### 0.0.3
 * P.persistREST and P.persistLocalStorage moved to other files. P.persist needs to be set by the app.
 * P.data-bind.js file added
