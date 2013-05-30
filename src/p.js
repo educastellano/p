@@ -321,6 +321,8 @@
                 model = this;
             }
 
+            xhrOptions.urlParams = options.urlParams;
+
             xhrOptions.success = function (resp) {
                 model.trigger('destroy', model);
                 if (options.success) {
