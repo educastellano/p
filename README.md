@@ -64,6 +64,7 @@ Changelog
 ### dev version
 * P.Model.save - 'method' can be passed in the options argument.
 * P.Model.destroy - Fix: passing urlParams in xhrOptions.
+* P.Model.getRespAttr - support for empty root attribute.
 
 ### 0.0.3
 * P.persistREST and P.persistLocalStorage moved to other files. P.persist needs to be set by the app.

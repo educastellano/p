@@ -206,9 +206,14 @@
             var attr;
 
             if (data) {
-                attr = data[this.root];
-                if (attr && attr.length) {
-                    attr = attr[0];
+                if (this.root) {
+                    attr = data[this.root];
+                    if (attr && attr.length) {
+                        attr = attr[0];
+                    }
+                }
+                else {
+                    attr = data;
                 }
             }
 
