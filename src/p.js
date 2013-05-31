@@ -197,6 +197,27 @@
             }
         },
 
+        setValues: function (values, options) {
+            var event_args;
+
+            this.attr = this.attr || {};
+            this.changed = this.changed || {};
+            this.attr = values;
+            if (!options || !options.no_change) {
+                this.changed = values;
+            }
+            if (!options || !options.no_event) {
+                event_args = {
+                    model: this,
+                    values: values
+                };
+                if (options && options.event_args) {
+                    event_args = P.inherits(event_args, options.event_args);
+                }
+                this.trigger('change', event_args);
+            }
+        },
+
         getId: function () {
             this.attr = this.attr || {};
             return this.attr[this.idAttr];
