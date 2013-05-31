@@ -89,15 +89,19 @@ P.plugins.view.List = P.inherits(P.View, {
         }
     },
 
-    selectOne: function (item) {
+    selectOne: function (model) {
         var i;
-        this.el.find('.item').removeClass(this.rowView.css_selected);
+        this.unSelect();
         for (i=0; i<this.views.length; i++) {
-             if (this.views[i].model.getId() === item.getId()) {
+             if (this.views[i].model.getId() === model.getId()) {
                  this.views[i].select();
                  break;
              }
         }
+    },
+
+    unSelect: function () {
+        this.el.children().removeClass(this.rowView.css_selected);
     }
 
 });
