@@ -66,6 +66,7 @@ Changelog
 * P.Model.destroy - Fix: passing urlParams in xhrOptions.
 * P.Model.getRespAttr - support for empty root attribute.
 * P.Model.setValues created. P.Model can now set multiple values.
+* P.Model.fetch fix - fetch event is fired from the model prototype, instead of the new object.
 
 ### 0.0.3
 * P.persistREST and P.persistLocalStorage moved to other files. P.persist needs to be set by the app.

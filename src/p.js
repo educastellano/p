@@ -322,7 +322,7 @@
                     }
                 }
 
-                model.trigger('fetch', model);
+                me.trigger('fetch', model);
                 if (options.success) {
                     options.success(model);
                 }
@@ -638,6 +638,9 @@
                     onModelChange = this.handlers.onModelChange || this.onModelChange;
                     if (onModelChange) {
                         models[i].on('change', onModelChange, this);
+                    }
+                    if (this.handlers.onModelFetch) {
+                        models[i].on('fetch', this.handlers.onModelFetch, this);
                     }
                     if (this.handlers.onModelSave) {
                         models[i].on('save', this.handlers.onModelSave, this);

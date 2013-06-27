@@ -6,8 +6,8 @@
 * [P.Model](https://github.com/educastellano/p/tree/master/src#pmodel)
 * [P.List](https://github.com/educastellano/p/tree/master/src#plist)
 * [P.View](https://github.com/educastellano/p/tree/master/src#pview)
-* [Persistance Strategies](https://github.com/educastellano/p/tree/master/src#persistancestrategies)
-* [Inheritance and Helpers](https://github.com/educastellano/p/tree/master/src#inheritanceandhelpers)
+* [Persistence Strategies](https://github.com/educastellano/p/tree/master/src#persistence-strategies)
+* [Inheritance and Helpers](https://github.com/educastellano/p/tree/master/src#inheritance-and-helpers)
 
 
 ## P.Event
