@@ -454,6 +454,7 @@
             };
 
             xhrOptions.error = function (resp) {
+                me.trigger('loaderror', {resp: resp});
                 if (options.error) {
                     options.error(resp);
                 }
@@ -611,6 +612,9 @@
                 for (i=0; i<lists.length; i++) {
                     if (this.handlers.onListLoad) {
                         lists[i].on('load', this.handlers.onListLoad, this);
+                    }
+                    if (this.handlers.onListLoadError) {
+                        lists[i].on('loaderror', this.handlers.onListLoadError, this);
                     }
                     if (this.handlers.onListClear) {
                         lists[i].on('clear', this.handlers.onListClear, this);

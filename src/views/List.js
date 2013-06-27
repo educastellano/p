@@ -25,6 +25,9 @@ P.plugins.view.List = P.inherits(P.View, {
         onListRemove: function onListRemove(e, args) {
             this.remove(args.model);
         },
+        onListLoadError: function onListLoadError(e, args) {
+            this.clear();
+        },
         onRowClick: function onRowClick(e, row) {
             this.trigger('rowclick', {row: row, list: this});
         }
