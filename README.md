@@ -14,7 +14,7 @@ It's strongly based in other frameworks such as Backbone, but its aim is to be a
 * The core (p.js) is nothing else than a MV* library
 
 
-# Introduction
+# Prototype-based MV*
 
 * From [wikipedia](http://en.wikipedia.org/wiki/Prototype-based_programming) (2013/07/01):
 
@@ -24,7 +24,7 @@ It's strongly based in other frameworks such as Backbone, but its aim is to be a
 
 	"…In classical languages, objects are instances of classes, and a class can inherit from another class. JavaScript is a prototypal language, which means that objects inherit directly from other objects…".
 
-This basically means you could do stuff like this:
+With a prototype-based language such as js you could do stuff like this:
 
 	var TodoProto = { 
 		name: '', 
@@ -93,7 +93,7 @@ And if we want to build an app following some kind of MV pattern:
 
 
 As we can see above, if we want to create other types of data we would duplicate a lot of code.  
-P provides 3 <u>objects</u> to be used as prototypes to boilerplate an MV* app: Model, List and View, plus the object Event which all 3 inherit from. So to create our protoypes we now need to inherit from those 3 objects. 
+P provides 3 objects to be used as prototypes to boilerplate an MV* app: Model, List and View, plus the object Event which the other 3 inherit from. So, to create our protoypes we now need to inherit from those 3 objects: 
 
 
 	var TodoProto = P.inherits(P.Model, { 
@@ -169,6 +169,9 @@ For the full documentation visit [this site](https://github.com/educastellano/p/
 # Changelog
 
 ### dev version
+* 
+
+### 0.0.4
 * P.Model.save - 'method' can be passed in the options argument.
 * P.Model.destroy - Fix: passing urlParams in xhrOptions.
 * P.Model.getRespAttr - support for empty root attribute.
