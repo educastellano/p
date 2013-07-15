@@ -47,6 +47,12 @@ P.plugins.view.List = P.inherits(P.View, {
         if (this.sortable) {
             this.sortable();
         }
+
+        if (this.pagination && !this.is_rendered) {
+            this.pagination();
+        }
+
+        this.is_rendered = true;
     },
 
     clear: function () {

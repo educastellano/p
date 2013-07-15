@@ -384,6 +384,9 @@
             if (typeof resp !== 'string') {
                 if (this.root) {
                     data = resp[this.root];
+                    this.attr = this.attr || {};
+                    this.attr = resp;
+                    delete this.attr[this.root];
                 }
                 else {
                     data = resp;
@@ -391,6 +394,10 @@
             }
 
             return data;
+        },
+
+        urlParamsPage: function (params) {
+            return params && params.start && params.limit ? '&start=' + params.start + '&limit=' + params.limit : '';
         },
 
         onModelChange: function onModelChange(e, args) {
