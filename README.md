@@ -16,15 +16,17 @@ It's strongly based in other frameworks such as Backbone, but its aim is to be a
 
 # Prototype-based MV*
 
+Prototype-based paradigm is:
+
 * From [wikipedia](http://en.wikipedia.org/wiki/Prototype-based_programming) (2013/07/01):
 
-	"Prototype-based programming is a style of object-oriented programming in which classes are not present, and behavior reuse (known as inheritance in class-based languages) is performed via a process of cloning existing objects that serve as prototypes. This model can also be known as classless, prototype-oriented or instance-based programming. Delegation is the language feature that supports prototype-based programming…".
+	"…a style of object-oriented programming in which classes are not present, and behavior reuse (known as inheritance in class-based languages) is performed via a process of cloning existing objects that serve as prototypes. This model can also be known as classless, prototype-oriented or instance-based programming...".
 
 * From Crockford, Douglas (2008) [*Javascript: The Good Parts*](http://shop.oreilly.com/product/9780596517748.do):
 
 	"…In classical languages, objects are instances of classes, and a class can inherit from another class. JavaScript is a prototypal language, which means that objects inherit directly from other objects…".
 
-With a prototype-based language such as js you could do stuff like this:
+With a prototype-based language such as js you can" do stuff like this:
 
 	var TodoProto = { 
 		name: '', 
@@ -114,7 +116,7 @@ P provides 3 objects to be used as prototypes to boilerplate an MV* app: Model, 
 
 Except for the *render()* method in the view, the rest of the methods have been factored.
 
-P also provides an *inherit()* method to make easier to use the second parameter of the ECMAScript5 function [Object.create(proto [, propertiesObject ])](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create), which needs to be configured each property of the object we create.
+P also provides an *inherit()* method to make easier to use the second parameter of the ECMAScript5 function [Object.create(proto [, propertiesObject ])](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create), which each property of the object we create needs to be "configured".
 
 
 # Getting started
