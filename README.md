@@ -7,19 +7,122 @@ P is a tiny MV* library to help you structuring your apps.
 It's strongly based in other frameworks such as Backbone, but its aim is to be a simple library rather than a framework.
 
 
-Features
-========
+# Features
 
 * Simple
 * Prototypal inheritance (No use of the "new" operator)
 * The core (p.js) is nothing else than a MV* library
 
-Install
-=======
 
-Get the [compiled and minified version](https://raw.github.com/educastellano/p/master/dist/p-0.0.3.min.js) and include it to your application.
+# Introduction
 
-# Some Basics
+* From [wikipedia](http://en.wikipedia.org/wiki/Prototype-based_programming) (2013/07/01):
+
+	"Prototype-based programming is a style of object-oriented programming in which classes are not present, and behavior reuse (known as inheritance in class-based languages) is performed via a process of cloning existing objects that serve as prototypes. This model can also be known as classless, prototype-oriented or instance-based programming. Delegation is the language feature that supports prototype-based programming…".
+
+* From Crockford, Douglas (2008) [*Javascript: The Good Parts*](http://shop.oreilly.com/product/9780596517748.do):
+
+	"…In classical languages, objects are instances of classes, and a class can inherit from another class. JavaScript is a prototypal language, which means that objects inherit directly from other objects…".
+
+This basically means you could do stuff like this:
+
+	var TodoProto = { 
+		name: '', 
+		done: false, 
+		finish: function () { 
+			this.done = true; 
+		} 
+	};
+	
+	var todo = Object.create(TodoProto);
+	todo.name = 'write this doc';
+	todo.finish();
+	console.log(todo.done);
+
+And if we want to build an app following some kind of MV pattern:
+
+
+	var TodoProto = { 
+		name: '', 
+		done: false, 
+		save: function () {
+			// ...
+		},
+		fetch: function () { 
+			// ...
+		},
+		destroy: function () { 
+			// ...
+		}
+		// ...
+	};
+	var TodoListProto = {
+		data: [],
+		load: function () {
+			// ...
+		},
+		add: function (todo) {
+			// ...
+			this.data.push(todo)
+			// ...
+		},
+		remove: function () {
+			// ...
+		}
+	};
+	var TodoViewProto = {
+		//...
+		render: function (todo) {
+			// ...
+		}		
+	};
+	
+	// load some data
+	var list = Object.create(TodoListProto);	
+	list.load();
+	
+	// create a todo
+	var todo = Object.create(TodoProto);
+	todo.name = 'write this doc';
+	todo.save();
+	list.add(todo);
+	
+	// render it (after some event handling...)
+	var view = Object.create(TodoViewProto);
+	view.render(todo);
+
+
+As we can see above, if we want to create other types of data we would duplicate a lot of code.  
+P provides 3 <u>objects</u> to be used as prototypes to boilerplate an MV* app: Model, List and View, plus the object Event which all 3 inherit from. So to create our protoypes we now need to inherit from those 3 objects. 
+
+
+	var TodoProto = P.inherits(P.Model, { 
+		name: '', 
+		done: false, 
+		finish: function () { 
+			this.done = true; 
+		}
+	});
+	var TodoListProto = P.inherits(P.List, {
+		model: TodoProto
+	});
+	var TodoViewProto = P.inherits(P.View, {
+		render: function (todo) {
+			// ...
+		}		
+	});
+
+Except for the *render()* method in the view, the rest of the methods have been factored.
+
+P also provides an *inherit()* method to make easier to use the second parameter of the ECMAScript5 function [Object.create(proto [, propertiesObject ])](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create), which needs to be configured each property of the object we create.
+
+
+# Getting started
+
+Initializations and definition of the persistence strategy:
+  
+	this.App = {};
+	P.persist = P.persistREST;
 
 Define models:
 
@@ -54,13 +157,17 @@ Fetch data:
 	person.fetch({
 		id: 1
 	});
-	
+
+# Install
+
+Get the [compiled and minified version](https://raw.github.com/educastellano/p/master/dist/p-0.0.3.min.js) and include it to your application.
+
 # Docs
 
-For the full documentation visit [this site](https://github.com/educastellano/p/tree/master/src).
+For the full documentation visit [this site](https://github.com/educastellano/p/tree/master/
 
-Changelog
-=========
+# Changelog
+
 ### dev version
 * P.Model.save - 'method' can be passed in the options argument.
 * P.Model.destroy - Fix: passing urlParams in xhrOptions.
