@@ -41,7 +41,7 @@ With a prototype-based language such as js you can" do stuff like this:
 	todo.finish();
 	console.log(todo.done);
 
-And if we want to build an app following some kind of MV pattern:
+If we want to build an app following some kind of MV pattern:
 
 
 	var TodoProto = { 
@@ -171,7 +171,7 @@ For the full documentation visit [this site](https://github.com/educastellano/p/
 # Changelog
 
 ### dev version
-* 
+* P.View - Event handling has changed. Handlers are formed now with '[object]:[event]': function () {}
 
 ### 0.0.4
 * P.Model.save - 'method' can be passed in the options argument.
