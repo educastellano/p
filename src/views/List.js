@@ -31,8 +31,8 @@ P.plugins.view.List = P.inherits(P.View, {
         'list.loaderror': function onListLoadError(e, args) {
             this.clear();
         },
-        onRowClick: function onRowClick(e, row) {
-            this.trigger('rowclick', {row: row, list: this});
+        onRowClick: function onRowClick(e, args) {
+            this.trigger('rowclick', {row: args.row, list: this, e: args.e});
         }
     },
 

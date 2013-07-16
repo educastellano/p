@@ -16,7 +16,7 @@ P.plugins.view.Row = P.inherits(P.View, {
     handlers: {
         'model.change': P.databind.onModelChange,
         onRowClick: function (e) {
-            this.trigger('click', this);
+            this.trigger('click', {row: this, e: e});
         }
     },
 
