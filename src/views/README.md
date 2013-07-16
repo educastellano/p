@@ -1,10 +1,82 @@
 # ""Abstract"" Views
 
-## List
+## List and Row  
+    
+HTML:
 
-## Row
+	<table>
+		<thead>
+			<th>name</th>
+			<th>email</th>
+		</thead>
+		<tbody id="people-list">
+			<script id="person-template" type="text/x-handlebars-template">
+			<tr>
+				<td>{{{ name }}}</td>
+				<td>{{{ email }}}</td>
+			</tr>
+			</script>
+		</tbody>
+	</table>
+
+Row View:
+
+	App.PersonRow = P.inherits(P.plugins.view.Row, {
+    	template:   Handlebars.compile($("#person-template").html()),
+	});
+
+List View:
+
+	App.PersonList = P.inherits(P.plugins.view.List, {
+		el: $('#people-list'),
+		list: App.People,
+		rowView: App.PersonRow,
+	    views: []
+	});
+
 
 ## Form
+
+HTML:
+
+	<div id="person-form">
+		<input type="text" id="person-name"  />
+		<input type="text" id="person-email" />
+		<button id="person-submit">Submit</button>
+	</div>
+
+View:
+
+	App.PersonForm = P.inherits(P.plugins.view.Form, {
+
+    	el: $('#person-form'),
+	    el_submit: $('#person-submit'),
+	    inputs: {
+    	    name: {
+        	    el: $('#person-name')
+	        },
+    	    email: {
+        	    el: $('#person-email')
+	        }
+    	},
+
+    	onSubmit: function (values) {
+			// whatever you need here.
+	    },
+
+    	render: function (model) {
+        	if (model) {
+				// edition
+	        }
+    	    else {
+				// creation
+	        }
+    	}
+	});
+
+
+
+
 
 ## Tabs
 
@@ -34,6 +106,12 @@ View:
 		}
 
 	});
+
+## BootsTabs
+
+HTML:
+
+View:
 
 
 
