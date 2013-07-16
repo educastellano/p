@@ -13,7 +13,7 @@ P.databind.onModelChange = function onModelChange (e, args) {
         }
     }
     catch (e) {
-        // no need to throw the error, data simply won't be changed.
+
     }
 };
 
