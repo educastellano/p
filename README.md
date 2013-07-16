@@ -139,7 +139,7 @@ Define views:
 	    el: $('#person'),
 
 	    handlers: {
-	        onModelLoad: function onModelLoad(e, model) {
+	        'model.load': function onModelLoad(e, model) {
 	            this.render(model);
 	        }
     	},
@@ -151,14 +151,8 @@ Define views:
 	});
 
 Fetch data:
-	
-	var person = App.Person.create();
-	
-	App.PersonView.model = person; 
-	
-	person.fetch({
-		id: 1
-	});
+
+-- ...
 
 # Install
 
