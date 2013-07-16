@@ -607,57 +607,30 @@
         $name: 'View',
 
         init: function () {
-            var lists = this.list,
-                models = this.model,
-                i,
-                onModelChange;
+            this.bindEvents(this.handlers);
+        },
 
-            if (lists) {
-                if (!Array.isArray(lists)) {
-                    lists = [lists];
-                }
-                for (i=0; i<lists.length; i++) {
-                    if (this.handlers.onListLoad) {
-                        lists[i].on('load', this.handlers.onListLoad, this);
-                    }
-                    if (this.handlers.onListLoadError) {
-                        lists[i].on('loaderror', this.handlers.onListLoadError, this);
-                    }
-                    if (this.handlers.onListClear) {
-                        lists[i].on('clear', this.handlers.onListClear, this);
-                    }
-                    if (this.handlers.onListAdd) {
-                        lists[i].on('add', this.handlers.onListAdd, this);
-                    }
-                    if (this.handlers.onListRemove) {
-                        lists[i].on('remove', this.handlers.onListRemove, this);
-                    }
-                    if (this.handlers.onListBeforeLoad) {
-                        lists[i].on('beforeload', this.handlers.onListBeforeLoad, this);
-                    }
-                    if (this.handlers.onListChange) {
-                        lists[i].on('change', this.handlers.onListChange, this);
-                    }
-                }
-            }
+        bindEvents: function (events) {
+            var event_name,
+                event_aux,
+                event_obj,
+                event;
 
-            if (models) {
-                if (!Array.isArray(models)) {
-                    models = [models];
-                }
-                for (i=0; i<models.length; i++) {
-                    onModelChange = this.handlers.onModelChange || this.onModelChange;
-                    if (onModelChange) {
-                        models[i].on('change', onModelChange, this);
-                    }
-                    if (this.handlers.onModelFetch) {
-                        models[i].on('fetch', this.handlers.onModelFetch, this);
-                    }
-                    if (this.handlers.onModelSave) {
-                        models[i].on('save', this.handlers.onModelSave, this);
-                    }
-                    if (this.handlers.onModelDestroy) {
-                        models[i].on('destroy', this.handlers.onModelDestroy, this);
+            if (events) {
+                for (event_name in events) {
+                    event_aux = event_name.split('.');
+                    if (event_aux.length >= 2) {
+                        event_obj = event_aux[0] ? this[event_aux[0]] : this; // TODO support for nested objects
+                        event = event_aux[event_aux.length - 1];
+                        if (P.Event.isPrototypeOf(event_obj)) {
+                            event_obj.on(event, events[event_name], this);
+                        }
+                        else if (event_obj instanceof jQuery) {
+                            event_obj.on(event, $.proxy(events[event_name], this));
+                        }
+                        else {
+
+                        }
                     }
                 }
             }

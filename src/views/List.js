@@ -16,16 +16,19 @@ P.plugins.view.List = P.inherits(P.View, {
     //    sortable: function() (Optional)
 
     handlers: {
-        onListLoad: function onListLoad(e, args) {
+        'list.load': function onListLoad(e, args) {
             this.render(args.list);
         },
-        onListAdd: function onListAdd(e, args) {
+        'list.add': function onListAdd(e, args) {
             this.append(args.model, args);
         },
-        onListRemove: function onListRemove(e, args) {
+        'list.remove': function onListRemove(e, args) {
             this.remove(args.model);
         },
-        onListLoadError: function onListLoadError(e, args) {
+        'list.clear': function onListClear(e, args) {
+            this.clear();
+        },
+        'list.loaderror': function onListLoadError(e, args) {
             this.clear();
         },
         onRowClick: function onRowClick(e, row) {
