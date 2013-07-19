@@ -39,6 +39,18 @@
         return Object.create(parent, es5Props);
     };
 
+    P.initViews = function (obj_views) {
+        var views = Object.keys(obj_views),
+            i,
+            view;
+
+        for (i=0; i<views.length; i++) {
+            view = obj_views[views[i]];
+            if (view.init) {
+                view.init();
+            }
+        }
+    };
 
     //
     // Helpers

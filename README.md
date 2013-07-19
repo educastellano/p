@@ -172,6 +172,7 @@ For the full documentation visit [this site](https://github.com/educastellano/p/
 
 ### dev version
 * P.View - Event handling has changed. Handlers are formed now with '[object]:[event]': function () {}
+* P.initViews method created.
 
 ### 0.0.4
 * P.Model.save - 'method' can be passed in the options argument.
