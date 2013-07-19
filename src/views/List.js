@@ -14,6 +14,7 @@ P.plugins.view.List = P.inherits(P.View, {
     //    rowView:
     //    selectable: function() (Optional)
     //    sortable: function() (Optional)
+    //    pagination: {} (Optional)
 
     handlers: {
         'list.load': function onListLoad(e, args) {
@@ -51,11 +52,9 @@ P.plugins.view.List = P.inherits(P.View, {
             this.sortable();
         }
 
-        if (this.pagination && !this.is_rendered) {
-            this.pagination();
+        if (this.pagination) {
+            this.setPagination();
         }
-
-        this.is_rendered = true;
     },
 
     clear: function () {
@@ -114,6 +113,29 @@ P.plugins.view.List = P.inherits(P.View, {
 
     unSelect: function () {
         this.el.children().removeClass(this.rowView.css_selected);
+    },
+
+    setPagination: function () {
+        var me = this;
+
+        if (this._page_changing) {
+            this._page_changing = false;
+        }
+        else {
+            this.pagination.el.bootstrapPaginator({
+                currentPage: 1,
+                totalPages: Math.ceil(this.list.attr.total_count / me.pagination.limit),
+                onPageChanged: function (e, oldPage, newPage) {
+                    var params = me.list.urlParams || {};
+                    params.start = newPage - 1;
+                    params.limit = me.pagination.limit;
+                    me._page_changing = true;
+                    me.list.load({
+                        urlParams: params
+                    });
+                }
+            });
+        }
     }
 
 });
