@@ -128,13 +128,13 @@ Initializations and definition of the persistence strategy:
 
 Define models:
 
-	App.Person = P.inherits(P.Model, {
+	App.Person = P.create(P.Model, {
 	    api: '/api/0/person'
 	});
 
 Define views:
 
-	App.PersonView = P.inherits(P.View, {
+	App.PersonView = P.create(P.View, {
 
 	    el: $('#person'),
 
