@@ -22,7 +22,7 @@
         view: {}
     };
 
-    P.inherits = function (parent, child) {
+    P.create = function (parent, child) {
         var es5Props = {},
             attr;
 
@@ -38,6 +38,8 @@
 
         return Object.create(parent, es5Props);
     };
+
+    P.inherits = P.create; // keep supporting 'inherits' fn name
 
     P.initViews = function (obj_views) {
         var views = Object.keys(obj_views),

@@ -98,17 +98,17 @@ As we can see above, if we want to create other types of data we would duplicate
 P provides 3 objects to be used as prototypes to boilerplate an MV* app: Model, List and View, plus the object Event which the other 3 inherit from. So, to create our protoypes we now need to inherit from those 3 objects: 
 
 
-	var TodoProto = P.inherits(P.Model, { 
+	var TodoProto = P.create(P.Model, {
 		name: '', 
 		done: false, 
 		finish: function () { 
 			this.done = true; 
 		}
 	});
-	var TodoListProto = P.inherits(P.List, {
+	var TodoListProto = P.create(P.List, {
 		model: TodoProto
 	});
-	var TodoViewProto = P.inherits(P.View, {
+	var TodoViewProto = P.create(P.View, {
 		render: function (todo) {
 			// ...
 		}		
@@ -116,7 +116,7 @@ P provides 3 objects to be used as prototypes to boilerplate an MV* app: Model, 
 
 Except for the *render()* method in the view, the rest of the methods have been factored.
 
-P also provides an *inherit()* method to make easier to use the second parameter of the ECMAScript5 function [Object.create(proto [, propertiesObject ])](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create), which each property of the object we create needs to be "configured".
+P also provides a *create()* method to make easier to use the second parameter of the ECMAScript5 function [Object.create(proto [, propertiesObject ])](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create), which each property of the object we create needs to be "configured".
 
 
 # Getting started
@@ -167,6 +167,7 @@ For the full documentation visit [this site](https://github.com/educastellano/p/
 ### dev version
 * P.View - Event handling has changed. Handlers are formed now with '[object]:[event]': function () {}
 * P.initViews method created.
+* P.create alias of P.inherits
 
 ### 0.0.4
 * P.Model.save - 'method' can be passed in the options argument.
