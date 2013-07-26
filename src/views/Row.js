@@ -15,16 +15,13 @@ P.plugins.view.Row = P.inherits(P.View, {
 
     handlers: {
         'model.change': P.databind.onModelChange,
-        onRowClick: function (e) {
+        'el.click': function (e) {
             this.trigger('click', {row: this, e: e});
         }
     },
 
-    render: function () {
+    create_el: function () {
         this.el = $(this.template(this.viewModel()).trim());
-
-        // events
-        this.el.on('click', $.proxy(this.handlers.onRowClick, this));
     },
 
     select: function () {

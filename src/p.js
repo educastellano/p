@@ -4,8 +4,7 @@
 //
 // Requires
 // - ES5
-// - jQuery (or jQuery-compatible lib) for :
-//      - fn.clone function (we should move the functions in 'fn' object to a another lib)
+// - jQuery (or jQuery-compatible lib)
 //
 
 (function (root) {
@@ -628,23 +627,41 @@
             var event_name,
                 event_aux,
                 event_obj,
+                event_obj_sub,
+                obj_aux,
                 event;
 
             if (events) {
                 for (event_name in events) {
-                    event_aux = event_name.split('.');
-                    if (event_aux.length >= 2) {
-                        event_obj = event_aux[0] ? this[event_aux[0]] : this; // TODO support for nested objects
+                    event_obj_sub = '';
+                    if (/\(.*\)/.test(event_name)) {
+                        event_aux = event_name.split('(')[1].split(')');
+                        // obj and sub-obj
+                        obj_aux = event_aux[0].split(' ');
+                        event_obj = this[obj_aux[0]];
+                        obj_aux.splice(0, 1);
+                        event_obj_sub = obj_aux.join(' ');
+                        // event
+                        event_aux = event_aux[event_aux.length - 1].split('.');
                         event = event_aux[event_aux.length - 1];
-                        if (P.Event.isPrototypeOf(event_obj)) {
-                            event_obj.on(event, events[event_name], this);
-                        }
-                        else if (event_obj instanceof jQuery) {
-                            event_obj.on(event, $.proxy(events[event_name], this));
-                        }
-                        else {
+                    }
+                    else {
+                        event_aux = event_name.split('.');
+                        event_obj = event_aux[0] ? this[event_aux[0]] : this;
+                        event = event_aux[event_aux.length - 1];
+                    }
 
+                    if (P.Event.isPrototypeOf(event_obj)) {
+                        event_obj.on(event, events[event_name], this);
+                    }
+                    else if (event_obj instanceof jQuery) {
+                        if (event_obj_sub) {
+                            event_obj = event_obj.find(event_obj_sub);
                         }
+                        event_obj.on(event, $.proxy(events[event_name], this));
+                    }
+                    else {
+
                     }
                 }
             }
@@ -682,7 +699,6 @@
             view.list = options.list;
             view.el = options.el;
             view.rootTag = options.rootTag;
-            view.init();
 
             return view;
         },

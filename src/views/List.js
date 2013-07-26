@@ -70,7 +70,8 @@ P.plugins.view.List = P.inherits(P.View, {
         var view = this.rowView.create({
             model: model
         });
-        view.render();
+        view.create_el();
+        view.init();
         this.el.append(view.el);
         view.on('click', this.handlers.onRowClick, this);
         this.views.push(view);

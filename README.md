@@ -168,6 +168,8 @@ For the full documentation visit [this site](https://github.com/educastellano/p/
 * P.View - Event handling has changed. Handlers are formed now with '[object]:[event]': function () {}
 * P.initViews method created.
 * P.create alias of P.inherits
+* P.View.create - init of the view is not done anymore within this method.
+* P.View.bindEvents - support for nested "DOM-jQuery" objects
 
 ### 0.0.4
 * P.Model.save - 'method' can be passed in the options argument.
