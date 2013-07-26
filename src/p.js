@@ -493,6 +493,7 @@
         add: function (model, options) {
             var event_args;
 
+            options = options || {};
             this.data = this.data || [];
             this.rawData = this.rawData || [];
 
@@ -504,14 +505,23 @@
                 return false;
             }
 
-            this.data.push(model);
-            this.rawData.push(model.attr);
+            if (options.prepend) {
+                this.data.unshift(model);
+                this.rawData.unshift(model.attr);
+            }
+            else {
+                this.data.push(model);
+                this.rawData.push(model.attr);
+            }
             if (this.dataAdapter) {
                 this.dataAdapter(model);
             }
             model.on('change', this.onModelChange, this);
-            event_args = options && options.event_args || {};
+            event_args = options.event_args || {};
             event_args.model = model;
+            if (options.prepend) {
+                event_args.prepend = options.prepend;
+            }
             this.trigger('add', event_args);
 
             return model;

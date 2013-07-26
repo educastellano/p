@@ -72,9 +72,15 @@ P.plugins.view.List = P.inherits(P.View, {
         });
         view.create_el();
         view.init();
-        this.el.append(view.el);
+        if (options && options.prepend) {
+            this.el.prepend(view.el);
+            this.views.unshift(view);
+        }
+        else {
+            this.el.append(view.el);
+            this.views.push(view);
+        }
         view.on('click', this.handlers.onRowClick, this);
-        this.views.push(view);
         if (options && options.fade) {
             if (typeof options.fade === 'function') {
                 options.fade(view.el);
