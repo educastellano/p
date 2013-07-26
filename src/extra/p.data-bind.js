@@ -44,7 +44,7 @@ P.databind.bindData = function bindData (view, el, args) {
             args_value = false;
         }
 
-        if (args_value) {
+        if (args_value !== false) { // must keep "!== false", in case of " '', 0,... " values
             if (view.defViewModel && view.defViewModel[attr]) {
                 value = view.defViewModel[attr](args_value);
             }
