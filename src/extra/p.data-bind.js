@@ -41,10 +41,10 @@ P.databind.bindData = function bindData (view, el, args) {
         }
         else {
             // attr not changed.
-            args_value = false;
+            args_value = null;
         }
 
-        if (args_value !== false) { // must keep "!== false", in case of " '', 0,... " values
+        if (args_value !== null) { // must keep "!== null", in case of " '', 0,... " values
             if (view.defViewModel && view.defViewModel[attr]) {
                 value = view.defViewModel[attr](args_value);
             }
@@ -68,7 +68,7 @@ P.databind.bindData = function bindData (view, el, args) {
                 el[attrDOM](value);
             }
             else {
-                el.attr(attrDOM, value);
+                el.prop(attrDOM, value);
             }
         }
     }
