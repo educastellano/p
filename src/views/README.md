@@ -30,8 +30,7 @@ List View:
 	App.PersonList = P.inherits(P.plugins.view.List, {
 		el: $('#people-list'),
 		list: App.People,
-		rowView: App.PersonRow,
-	    views: []
+		rowView: App.PersonRow
 	});
 
 

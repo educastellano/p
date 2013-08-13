@@ -59,11 +59,13 @@ P.plugins.view.List = P.inherits(P.View, {
 
     clear: function () {
         var i;
-        for (i=0; i<this.views.length; i++) {
-            this.views[i].destroy();
+        if (this.views) {
+            for (i = 0; i < this.views.length; i++) {
+                this.views[i].destroy();
+            }
+            // jQuery update event, used by some plugins
+            this.el.trigger('update');
         }
-        // jQuery update event, used by some plugins
-        this.el.trigger('update');
     },
 
     append: function (model, options) {
@@ -72,6 +74,7 @@ P.plugins.view.List = P.inherits(P.View, {
         });
         view.create_el();
         view.init();
+        this.views = this.views || [];
         if (options && options.prepend) {
             this.el.prepend(view.el);
             this.views.unshift(view);
@@ -97,24 +100,28 @@ P.plugins.view.List = P.inherits(P.View, {
 
     remove: function (model) {
         var i;
-        for (i=0; i<this.views.length; i++) {
-            if (this.views[i].model.getId() === model.getId()) {
-                this.views[i].destroy();
-                // jQuery update event, used by some plugins
-                this.el.trigger('update');
-                break;
+        if (this.views) {
+            for (i = 0; i < this.views.length; i++) {
+                if (this.views[i].model.getId() === model.getId()) {
+                    this.views[i].destroy();
+                    // jQuery update event, used by some plugins
+                    this.el.trigger('update');
+                    break;
+                }
             }
         }
     },
 
     selectOne: function (model) {
         var i;
-        this.unSelect();
-        for (i=0; i<this.views.length; i++) {
-             if (this.views[i].model.getId() === model.getId()) {
-                 this.views[i].select();
-                 break;
-             }
+        if (this.views) {
+            this.unSelect();
+            for (i = 0; i < this.views.length; i++) {
+                if (this.views[i].model.getId() === model.getId()) {
+                    this.views[i].select();
+                    break;
+                }
+            }
         }
     },
 
