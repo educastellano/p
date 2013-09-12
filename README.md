@@ -1,5 +1,3 @@
-__IMPORTANT__: There is not any stable release of this lib yet.
-
 P
 =
 P is a tiny MV* library to help you structuring your apps. 
@@ -12,6 +10,7 @@ It's strongly based in other frameworks such as Backbone, but its aim is to be a
 * Simple
 * Prototypal inheritance (No use of the "new" operator)
 * The core (p.js) is nothing else than a MV* library
+* Strategy pattern for persistence
 
 
 # Prototype-based MV*
@@ -158,9 +157,9 @@ Fetch data:
 
 Get the [compiled and minified version](https://raw.github.com/educastellano/p/master/dist/p-0.0.3.min.js) and include it to your application.
 
-# Docs
+# API Reference
 
-For the full documentation visit [this site](https://github.com/educastellano/p/tree/master/
+For the full API documentation visit [this site](https://github.com/educastellano/p/tree/master/src)
 
 # Changelog
 
