@@ -157,9 +157,10 @@ Fetch data:
 
 Get the [compiled and minified version](https://raw.github.com/educastellano/p/master/dist/p-0.0.3.min.js) and include it to your application.
 
-# API Reference
+# More Info
 
-For the full API documentation visit [this site](https://github.com/educastellano/p/tree/master/src)
+* [API Reference](https://github.com/educastellano/p/tree/master/src)
+* [Components](https://github.com/educastellano/p/tree/master/src/views)
 
 # Changelog
 
